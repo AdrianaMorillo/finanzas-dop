@@ -1,4 +1,4 @@
-const API_KEY = import.meta.env.VITE_EXCHANGERATE_API_KEY;
+const API_KEY = "36d388bdc814eebbb8a829ab";
 
 const container = document.getElementById("cardsContainer");
 const input = document.getElementById("amount");
