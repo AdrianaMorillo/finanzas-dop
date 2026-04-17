@@ -11,10 +11,37 @@ const monedas = [
 let rates = {};
 
 async function cargarDatos() {
-  const res = await fetch(`https://v6.exchangerate-api.com/v6/${API_KEY}/latest/DOP`);
-  const data = await res.json();
+  try {
+    const res = await fetch(`https://v6.exchangerate-api.com/v6/${API_KEY}/latest/DOP`);
+    const data = await res.json();
 
-  rates = data.conversion_rates;
+    console.log("API:", data);
+
+    if (data.result === "success") {
+      rates = data.conversion_rates;
+    } else {
+      throw new Error("API falló");
+    }
+
+  } catch (error) {
+    console.error("Usando datos de respaldo:", error);
+
+    // 🔥 DATOS DE RESPALDO (MUY IMPORTANTE)
+    rates = {
+      USD: 0.017,
+      EUR: 0.015,
+      GBP: 0.013,
+      JPY: 2.6,
+      CNY: 0.12,
+      AUD: 0.026,
+      CAD: 0.023,
+      CHF: 0.016,
+      MXN: 0.29,
+      BRL: 0.085,
+      INR: 1.4,
+      KRW: 22
+    };
+  }
 
   renderCards();
 }
